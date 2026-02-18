@@ -64,6 +64,8 @@ const {
   dryRun,
   continuousMode,
   scanCooldownSec,
+  bleHandler,
+  mqttProxy,
 } = resolveRuntimeConfig(appConfig);
 
 const KG_TO_LBS = 2.20462;
@@ -186,6 +188,8 @@ async function runSingleUserCycle(exporters?: Exporter[]): Promise<boolean> {
     profile,
     weightUnit,
     abortSignal: signal,
+    bleHandler,
+    mqttProxy,
     onLiveData(reading) {
       const impStr: string = reading.impedance > 0 ? `${reading.impedance} Ohm` : 'Measuring...';
       process.stdout.write(
@@ -219,6 +223,8 @@ async function runMultiUserCycle(): Promise<boolean> {
     profile: defaultProfile,
     weightUnit,
     abortSignal: signal,
+    bleHandler,
+    mqttProxy,
     onLiveData(reading) {
       const impStr: string = reading.impedance > 0 ? `${reading.impedance} Ohm` : 'Measuring...';
       process.stdout.write(
